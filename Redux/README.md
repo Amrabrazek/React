@@ -1,2 +1,0 @@
-# React
-Studying react libraries
