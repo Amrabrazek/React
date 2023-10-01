@@ -18,7 +18,7 @@ Each box represents a piece of information, like your name, age, or favorite col
 
 ### Parents (Reducers)
 
-Your parents are like reducers in Redux. They are responsible for taking care of the boxes (state) and making sure they go to the right places when someone asks for them. For example, if someone wants to know your age, your parents will get the age box (state) from the room (store) and give it to them.
+Your parents are like reducers in Redux. They are responsible for taking care of the boxes (state) and making sure they go to the right places when someone asks for them. For example, if someone wants to know your age, your parents will get the age box (state) from the room (store) and give it to them and they know the inital value of the staff in the room.
 
 ### Asking for boxes (Actions)
 
@@ -270,6 +270,4 @@ export default function userReducer(state= initialState, action) {
 The user make a request  ---->  a new owner buies the house   
 which will dispatch an action (changeinfo).  ----->  Parents knows the new ownerinfo
 Aaccording to the action, the reducer will update the state ----> change the user box according to the rule with new values
-
-
 
