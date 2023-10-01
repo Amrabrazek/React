@@ -4,7 +4,7 @@
 
 Imagine you have a toy box with many toys inside. Each toy represents a piece of information, like your name, age, or favorite color. Sometimes, different parts of your room want to know about these toys and play with them. But instead of going to your toy box directly, they can ask your parents.
 
-In this example, your parents are like Redux. They help manage and share the toys (information) with different parts of your room (your app). 
+In this example, your parents are like Redux. They help manage and share the toys (information) with different parts of your room (your app).
 
 ## How Redux Works
 
@@ -20,7 +20,7 @@ Each box represents a piece of information, like your name, age, or favorite col
 
 Your parents are like reducers in Redux. They are responsible for taking care of the boxes (state) and making sure they go to the right places when someone asks for them. For example, if someone wants to know your age, your parents will get the age box (state) from the room (store) and give it to them and they know the inital value of the staff in the room.
 
-### Asking for boxes (Actions)
+### Asking for boxes-Informations  (Actions)
 
 When someone wants to change information with a specific box (state), they can ask for it. In Redux, we call this asking for boxes actions. Actions are like requests for specific information. For example, if we want to change an information like your age from 5 to 6 we say "Increment" This request is an action.
 
@@ -42,7 +42,7 @@ Redux is a powerful tool that helps manage and share information in an organized
 ### Example 1
 
 In this example we have a state (box) called count on which we want to apply some actions (increment, decrement, incrementByten).
-Assume it's the number of toys in the room.
+Assume the box represent the number of toys in the room.
 
 ### Declare the store and the state
 
@@ -60,10 +60,10 @@ const store = combineReducers({
 export default createStore(store, composeWithDevTools(applyMiddleware(thunk)))
 ````
 
-### Decalre Actions (Asking for Toys)
+### Decalre Actions (Asking for boxes-Informations)
 
-This is how we name what we want to do with the information carried by the state (what to do with the toy)
-We can also call it rules to play with toys
+This is how we name what we want to do with the information carried by the state
+We can also call it rules to replace boxes
 
 source: ./src/features/counter/counterConstanats.js
 ```
