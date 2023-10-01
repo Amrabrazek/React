@@ -8,7 +8,7 @@ In this example, your parents are like Redux. They help manage and share the toy
 
 ## How Redux Works
 
-### a Room (Store)
+### A Room (Store)
 
 The Room is where all our boxes (information) are stored. It's called the store in Redux.
 
@@ -20,7 +20,7 @@ Each box represents a piece of information, like your name, age, or favorite col
 
 Your parents are like reducers in Redux. They are responsible for taking care of the boxes (state) and making sure they go to the right places when someone asks for them. For example, if someone wants to know your age, your parents will get the age box (state) from the room (store) and give it to them.
 
-### Asking for Toys (Actions)
+### Asking for boxes (Actions)
 
 When someone wants to change information with a specific box (state), they can ask for it. In Redux, we call this asking for boxes actions. Actions are like requests for specific information. For example, if we want to change an information like your age from 5 to 6 we say "Increment" This request is an action.
 
@@ -39,7 +39,7 @@ Redux is a powerful tool that helps manage and share information in an organized
 
 ## Examples
 
-### Example1
+### Example 1
 
 In this example we have a state (box) called count on which we want to apply some actions (increment, decrement, incrementByten).
 Assume it's the number of toys in the room.
@@ -75,7 +75,7 @@ export const INCREMENTBY10 = 'INCREMENTBY10'
 
 ### Declare Actions Creators (Parents' Plan)
 
-I tell the parent what to do with the (state) 
+I tell the parent what to do with the box (state) 
 
 source: ./src/features/counter/counterActions.js
 ```
@@ -111,24 +111,13 @@ const Counter = ({count, increment, decrement, incrementByten}) => {
         <div>
             <h1>Counter</h1>
             <p>The current count is {count}</p>
-            <button onClick={()=> (incrementByten())}>Add10</button>
+            <button onClick={()=> (incrementByten())}>Add10</button>  // tell the reducer the what rule to follow 
             <button onClick={()=> (increment())}>Add</button>
             <button onClick={()=> (decrement())}>Remove</button>
         </div>
     )
 }
 
-const mapStateToProps = (state) => ({
-    count: state.count.value,
-    });
-    
-const mapDispatchToProps = {
-    increment,
-    decrement,
-    incrementByten
-    };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
 
@@ -145,7 +134,7 @@ const initialState = {
     value: 0,
 }
 
-export default function counterReducer(state= initialState, action) {
+export default function counterReducer(state= initialState, action) {   //the reducer take the action as a parameter and according to it's type it change the staet 
     switch (action.type) {
         case INCREMENT:
             return {
@@ -170,12 +159,117 @@ export default function counterReducer(state= initialState, action) {
 
 ### Sum up
 
-The user make a request  ----> some one ask for a toy 
-which will dispatch an action.  ----->  Tells parents which rule to follow 
+The user make a request  ----> someone asks for ask for a toy from the room  
+which will dispatch an action.  ----->  Tells parents which rule to follow (DECREMENT in this case)
 Aaccording to the action, the reducer will update the state ----> change the box according to the rule 
 
 
+## Example 2
 
+In this example we have a state (box) called user on which we want to apply some actions (changefirstname, changelastname).
+Assume it's the owner of in the house.
+What if a new owner buy the house?
+How we can find change the box if we don't know the new info
+
+### Declare the store and the state
+
+We have a state (a box represnting the ownerinfo) which carry information called user 
+the state (box) is stored in the store (room)
+
+source: ./src/app/store.js
+```
+// Store (room)
+const store = combineReducers({
+    count: counterReducer,  
+    user: userReducer,    //----> state(a box represnting information about the owner of the house)
+    post: postReducer
+    });
+export default createStore(store, composeWithDevTools(applyMiddleware(thunk)))
+````
+
+### Decalre Actions
+
+We want to either change the owner's first name or last name
+
+source: ./src/features/user/userConstanats.js
+```
+// Actions 
+export const CHANEGINFO = 'CHANEGINFO'
+```
+
+### Declare Actions Creators (Parents' Plan)
+
+within the action, we have to tell the parents with the new info to be able to change the box carrying the user info with new info.
+
+source: ./src/features/user/userActions.js
+```
+export function changeinfo(newinfo) {
+    return{
+        type: CHANEGINFO,
+        payload: newinfo
+    }
+}
+```
+
+### Dispatching 
+
+when someone buys the house,
+we have to change the user info there for we call the action changeinfo which wil make us follow speciific rules 
+and we give the action the new info as required
+
+source: ./src/features/user/User.js
+```
+const handleSave = () => {
+    changeinfo({
+        first_name: editedFirstName,
+        last_name: editedLastName
+    });
+};
+
+return (
+<div>
+    <h1>User</h1>
+    <input type="text" value={editedFirstName} onChange={handleFirstNameChange} />
+    <br />
+    <input type="text" value={editedLastName} onChange={handleLastNameChange} />
+    <br />
+    <button onClick={handleSave}>SAVE</button>
+</div>
+);
+```
+
+### Reducers (Parents)
+
+So when someone buy the house, the box represting the user should be changed with new values
+
+source: ./src/features/user/counterUser
+.js
+```
+const initialState = {
+    data: {
+        first_name: "amr",
+        last_name: "abdelrazek",
+        }
+    }
+    
+export default function userReducer(state= initialState, action) {
+    switch (action.type) {
+        case CHANEGINFO:
+            return {
+                ...state,
+                data: action.payload
+            }
+        default:
+            return state
+    }        
+}
+```
+
+### Sum up
+
+The user make a request  ---->  a new owner buies the house   
+which will dispatch an action (changeinfo).  ----->  Parents knows the new ownerinfo
+Aaccording to the action, the reducer will update the state ----> change the user box according to the rule with new values
 
 
 
