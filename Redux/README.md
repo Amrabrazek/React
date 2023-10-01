@@ -267,7 +267,7 @@ export default function userReducer(state= initialState, action) {
 
 ### Sum up
 
-The user make a request  ---->  a new owner buies the house   
-which will dispatch an action (changeinfo).  ----->  Parents knows the new ownerinfo
-Aaccording to the action, the reducer will update the state ----> change the user box according to the rule with new values
+The user make a request  ---->  a new owner buies the house.
+which will dispatch an action (changeinfo).  ----->  Parents knows the new ownerinfo.
+According to the action, the reducer will update the state ----> change the user box according to the rule with new values
 
