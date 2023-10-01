@@ -1,4 +1,4 @@
 # React
 Studying react libraries
 
-You will find React-js libraries listed inside with explaination and examples.
+You will find React-js libraries listed with explaination and examples.
